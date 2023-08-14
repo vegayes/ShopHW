@@ -53,11 +53,13 @@
 DROP TABLE CATEGORY;
 DROP TABLE INVENTORY;
 DROP TABLE TOTAL_AMOUNT;
+DROP TABLE SHOP_MEMBER;
 
 
 SELECT * FROM CATEGORY;
 SELECT * FROM INVENTORY;
 SELECT * FROM TOTAL_AMOUNT;
+SELECT * FROM SHOP_MEMBER;
 
 --------------------------------------------------------------------------------------------------------------------------
 --                                           테이블 설계
@@ -94,7 +96,7 @@ CREATE TABLE INVENTORY(
 	PRICE NUMBER CONSTRAINT IT_PR_NN NOT NULL
 );
 
--- 3) 재고 금액 
+-- 3) 재고 금액 테이블
 -- 상품 코드(PR_ID) , 카테고리(CATEGORY), 상품명(PR_NAME), 금액(TOTAL) 
 -->  PK                 FK               UNIQUE       NOT NULL 
 CREATE TABLE TOTAL_AMOUNT (
@@ -104,6 +106,53 @@ CREATE TABLE TOTAL_AMOUNT (
 	TOTAL NUMBER  DEFAULT 0    
 );
 
+
+-- 4) 회원 테이블 
+-- 유저 ID , 유저PW ,  이름, 생년월일, 주소 , 구매건수, 등급,  마지막 구매 날짜?
+--> PK               
+CREATE TABLE SHOP_MEMBER ( 
+
+	USER_ID VARCHAR2(20) CONSTRAINT SM_ID_PK PRIMARY KEY,
+	USER_PW VARCHAR2(30),
+	USER_NAME VARCHAR2(30) CONSTRAINT SM_NAME_NN NOT NULL,
+	USER_BIRTHDAY NUMBER,
+	USER_ADDRESS VARCHAR2(60),
+	USER_COUNT NUMBER,
+	USER_GRADE VARCHAR2(50),
+	LAST_PURCHASE DATE
+);
+
+-- 4-1) 아이디별 구매건수 및 마지막 구매 날짜
+-- 유저ID, 구매건수 ,마지막 구매 날짜
+
+CREATE TABLE SHOP_PURCHASE( 	
+	USER_ID VARCHAR2(20) CONSTRAINT SP_ID_PK PRIMARY KEY,
+	PURCHASE_COUNT NUMBER,
+	PURCHASE_LAST DATE
+);
+
+
+-- 4-2) 등급
+-- 등급명, 최소 구매, 최대 구매 
+-->  PK      NN           NN
+CREATE TABLE SHOP_GRADE( 
+	SHOP_GRADE VARCHAR2(30) CONSTRAINT SG_GRADE_PK PRIMARY KEY,
+	MIN_PURCHASE NUMBER,
+	MAX_PURCHASE NUMBER
+);
+
+
+
+INSERT INTO SHOP_GRADE VALUES('VIP', 50, 100);
+INSERT INTO SHOP_GRADE VALUES('우수',20, 49);
+INSERT INTO SHOP_GRADE VALUES('일반', 5, 19);
+INSERT INTO SHOP_GRADE VALUES('입문', 0, 5);
+
+
+
+
+
+-- 1) 회원테이블을 insert 할 때, 등급을 매겨서 넣고 싶음. 그러려면 회원테이블과 등급테이블이 만들어진 후에 
 
 
 -- COMMENT 
