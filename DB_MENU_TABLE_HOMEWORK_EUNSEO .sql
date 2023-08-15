@@ -143,11 +143,6 @@ CREATE TABLE SHOP_GRADE(
 
 
 
-INSERT INTO SHOP_GRADE VALUES('VIP', 50, 100);
-INSERT INTO SHOP_GRADE VALUES('우수',20, 49);
-INSERT INTO SHOP_GRADE VALUES('일반', 5, 19);
-INSERT INTO SHOP_GRADE VALUES('입문', 0, 5);
-
 
 
 
@@ -224,6 +219,16 @@ FROM INVENTORY  ;
 SELECT * FROM INVENTORY;
 SELECT * FROM TOTAL_AMOUNT;
 */
+
+-- 4) 
+
+
+INSERT INTO SHOP_GRADE VALUES('VIP', 50, 100);
+INSERT INTO SHOP_GRADE VALUES('우수',20, 49);
+INSERT INTO SHOP_GRADE VALUES('일반', 5, 19);
+INSERT INTO SHOP_GRADE VALUES('입문', 0, 5);
+
+
 	
 --------------------------------------------------------------------------------------------------------
 --                                     			 ! 조회 !
